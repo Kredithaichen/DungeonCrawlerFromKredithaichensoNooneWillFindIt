@@ -1,0 +1,121 @@
+fileFormatVersion: 2
+guid: b95904b2ffb401140a9e7a2890ebd54f
+timeCreated: 1506158527
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Ground_004
+    100002: Pillar_02_000
+    100004: Pillar_02_003
+    100006: Pillar_03_000
+    100008: Pillar_03_003
+    100010: StraightTunnel_002
+    100012: Tiles_01_004
+    100014: //RootNode
+    400000: Ground_004
+    400002: Pillar_02_000
+    400004: Pillar_02_003
+    400006: Pillar_03_000
+    400008: Pillar_03_003
+    400010: StraightTunnel_002
+    400012: Tiles_01_004
+    400014: //RootNode
+    2300000: Ground_004
+    2300002: Pillar_02_000
+    2300004: Pillar_02_003
+    2300006: Pillar_03_000
+    2300008: Pillar_03_003
+    2300010: StraightTunnel_002
+    2300012: Tiles_01_004
+    3300000: Ground_004
+    3300002: Pillar_02_000
+    3300004: Pillar_02_003
+    3300006: Pillar_03_000
+    3300008: Pillar_03_003
+    3300010: StraightTunnel_002
+    3300012: Tiles_01_004
+    4300000: Pillar_03_000
+    4300002: Pillar_02_000
+    4300004: Ground_004
+    4300006: Pillar_02_003
+    4300008: Pillar_03_003
+    4300010: StraightTunnel_002
+    4300012: Tiles_01_004
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
