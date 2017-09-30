@@ -126,17 +126,20 @@ public class PlayerCharacter : EditableMonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             speed += 120f * Time.deltaTime;
-            transform.position += (eulerAngle * Vector3.forward) * moveSpeed * Time.deltaTime;
+            transform.position += (eulerAngle * Vector3.forward) * moveSpeed * Time.deltaTime * character.Speed;
         }
         else if (Input.GetKey(KeyCode.S))
         {
             speed += 120f * Time.deltaTime;
-            transform.position += (eulerAngle * Vector3.back) * moveSpeed * Time.deltaTime;
+            transform.position += (eulerAngle * Vector3.back) * moveSpeed * Time.deltaTime * character.Speed;
         }
-        else
-            speed -= 20f * Time.deltaTime;
+        else if (speed > 0f)
+            speed -= 10f * Time.deltaTime;
 
-        character.Speed = Mathf.Clamp01(speed);
+        if (Input.GetKey(KeyCode.LeftShift))
+            character.Speed = Mathf.Clamp(speed, 0, stats.CurrentMoveSpeed / 2);
+        else
+            character.Speed = Mathf.Clamp(speed, 0, stats.CurrentMoveSpeed);
 
         // dash forward
         if (character.Stats.CurrentDashSpeed > 0)
@@ -250,7 +253,6 @@ public class PlayerCharacter : EditableMonoBehaviour
         var equipment = character.Inventory.EquipmentLoadout.EquippedItems[equipmentSlot];
 
         character.Inventory.UnequipItem(equipment);
-        //inventoryUIHandler.RemoveEquipment(equipment);
         inventoryUIHandler.UpdateUI(this);
     }
 
@@ -288,5 +290,6 @@ public class PlayerCharacter : EditableMonoBehaviour
         character.Inventory.AddItemToInventory(item);
 
         containerUIHandler.UpdateUI(this, container);
+        containerViewOnInventory.UpdateUI(this);
     }
 }
