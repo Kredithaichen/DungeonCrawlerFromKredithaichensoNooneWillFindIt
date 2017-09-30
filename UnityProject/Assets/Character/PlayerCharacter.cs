@@ -250,7 +250,6 @@ public class PlayerCharacter : EditableMonoBehaviour
         var equipment = character.Inventory.EquipmentLoadout.EquippedItems[equipmentSlot];
 
         character.Inventory.UnequipItem(equipment);
-        //inventoryUIHandler.RemoveEquipment(equipment);
         inventoryUIHandler.UpdateUI(this);
     }
 
@@ -288,5 +287,6 @@ public class PlayerCharacter : EditableMonoBehaviour
         character.Inventory.AddItemToInventory(item);
 
         containerUIHandler.UpdateUI(this, container);
+        containerViewOnInventory.UpdateUI(this);
     }
 }
