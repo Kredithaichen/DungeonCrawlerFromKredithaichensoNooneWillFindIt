@@ -28,13 +28,14 @@ public class ItemCollectionEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        var changesMade = false;
+
         GUILayout.Label("Items", EditorStyles.boldLabel);
 
         if (itemCollection.ItemCount == 0)
             GUILayout.Label("No Items in Inventoray", EditorStyles.centeredGreyMiniLabel);
         else
         {
-
             var saveSpace = EditorGUIUtility.labelWidth;
             EditorGUIUtility.labelWidth = 30f;
 
@@ -44,8 +45,12 @@ public class ItemCollectionEditor : Editor
             {
                 EditorGUILayout.BeginHorizontal();
 
-                itemCollection.Items[i] =
-                    (Item) EditorGUILayout.ObjectField((i + 1).ToString(), itemCollection.Items[i], typeof(Item), true);
+                var item = (Item)EditorGUILayout.ObjectField((i + 1).ToString(), itemCollection.Items[i], typeof(Item), true);
+                if (item != itemCollection.Items[i])
+                {
+                    changesMade = true;
+                    itemCollection.Items[i] = item;
+                }
 
                 if (equipmentLoadout != null &&
                     GUILayout.Button("Equip", EditorStyles.miniButton, GUILayout.Width(50f)))
@@ -65,5 +70,8 @@ public class ItemCollectionEditor : Editor
         GUILayout.Space(10f);
         if (GUILayout.Button("New"))
             itemCollection.AddItemToCollection(null);
+
+        if (changesMade)
+            EditorUtility.SetDirty(itemCollection);
     }
 }

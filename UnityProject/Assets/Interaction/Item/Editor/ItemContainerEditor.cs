@@ -24,7 +24,17 @@ public class ItemContainerEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        var changesMade = false;
         GUILayout.Label("General", EditorStyles.boldLabel);
-        itemContainer.ContainerName = EditorGUILayout.TextField("Name", itemContainer.ContainerName);
+        var name = EditorGUILayout.TextField("Container Name", itemContainer.ContainerName);
+
+        if (name != itemContainer.ContainerName)
+        {
+            changesMade = true;
+            itemContainer.ContainerName = name;
+        }
+
+        if (changesMade)
+            EditorUtility.SetDirty(itemContainer);
     }
 }

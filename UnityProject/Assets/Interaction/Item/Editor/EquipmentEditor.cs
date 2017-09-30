@@ -27,6 +27,8 @@ public class EquipmentEditor : Editor
 
     public static void DrawInspectorGUI(Equipment equipment)
     {
+        var changesMade = false;
+
         GUILayout.Space(10f);
         GUILayout.Label("Equipment Options", EditorStyles.boldLabel);
         equipment.TargetSlot = (EquipmentSlots)EditorGUILayout.EnumPopup("Target Body Slot", equipment.TargetSlot);
@@ -34,7 +36,15 @@ public class EquipmentEditor : Editor
         GUILayout.Label("Covered Body Parts:");
         EditorGUI.indentLevel++;
         for (int i = 0; i < Equipment.NumberOfBodyAreas; i++)
-            equipment.CoveredBodyAreas[i] = EditorGUILayout.Toggle(((BodyCoverArea)i).ToString(), equipment.CoveredBodyAreas[i]);
+        {
+            var area = EditorGUILayout.Toggle(((BodyCoverArea)i).ToString(), equipment.CoveredBodyAreas[i]);
+
+            if (area != equipment.CoveredBodyAreas[i])
+            {
+                changesMade = true;
+                equipment.CoveredBodyAreas[i] = area;
+            }
+        }
         EditorGUI.indentLevel--;
 
         GUILayout.Space(10f);
@@ -43,8 +53,15 @@ public class EquipmentEditor : Editor
         EditorGUILayout.BeginVertical();
 
         for (int i = 0; i < equipment.StatEffects.Count; i++)
-            equipment.StatEffects[i] =
-                (PermanentStatEffect)EditorGUILayout.ObjectField((i + 1).ToString(), equipment.StatEffects[i], typeof(PermanentStatEffect), true);
+        {
+            var effect = (PermanentStatEffect) EditorGUILayout.ObjectField((i + 1).ToString(), equipment.StatEffects[i], typeof(PermanentStatEffect), true);
+
+            if (effect != equipment.StatEffects[i])
+            {
+                changesMade = true;
+                equipment.StatEffects[i] = effect;
+            }
+        }
 
         EditorGUILayout.EndVertical();
 
@@ -58,5 +75,8 @@ public class EquipmentEditor : Editor
             equipment.StatEffects.RemoveAt(equipment.StatEffects.Count - 1);
 
         EditorGUILayout.EndHorizontal();
+
+        if (changesMade)
+            EditorUtility.SetDirty(equipment);
     }
 }

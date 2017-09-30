@@ -189,18 +189,17 @@ public class EquipmentLoadout : EditableMonoBehaviour
     private void ActivateBlendShapes(Equipment equipment)
     {
         for (int i = 0; i < equipment.CoveredBodyAreas.Length; i++)
-            targetMesh.SetBlendShapeWeight(i, equipment.CoveredBodyAreas[i] ? 100f : 0f);
+            targetMesh.SetBlendShapeWeight(i, equipment.CoveredBodyAreas[i] ? 100f : targetMesh.GetBlendShapeWeight(i));
     }
 
     private void DeactivateBlendShapes(Equipment equipment)
     {
         for (int i = 0; i < equipment.CoveredBodyAreas.Length; i++)
-            targetMesh.SetBlendShapeWeight(i, 0f);
+            targetMesh.SetBlendShapeWeight(i, equipment.CoveredBodyAreas[i] ? 0f : targetMesh.GetBlendShapeWeight(i));
     }
 
     public void UnequipItem(Equipment equipment)
     {
-        Debug.Log("unequip item " + equipment);
         if (equipment == null)
             return;
 

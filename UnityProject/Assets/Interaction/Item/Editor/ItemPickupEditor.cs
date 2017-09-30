@@ -19,7 +19,17 @@ public class ItemPickupEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        var changesMade = false;
+
         GUILayout.Label("Content", EditorStyles.boldLabel);
-        itemPickup.Item = (Item)EditorGUILayout.ObjectField("Item to pick up", itemPickup.Item, typeof(Item), true);
+        var item = (Item)EditorGUILayout.ObjectField("Item to pick up", itemPickup.Item, typeof(Item), true);
+        if (item != itemPickup.Item)
+        {
+            changesMade = true;
+            itemPickup.Item = item;
+        }
+
+        if (changesMade)
+            EditorUtility.SetDirty(itemPickup);
     }
 }

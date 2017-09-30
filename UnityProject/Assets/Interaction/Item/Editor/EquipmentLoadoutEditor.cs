@@ -25,6 +25,8 @@ public class EquipmentLoadoutEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        var changesMade = false;
+
         GUILayout.Label("Loadout", EditorStyles.boldLabel);
 
         var saveSpace = EditorGUIUtility.labelWidth;
@@ -41,18 +43,32 @@ public class EquipmentLoadoutEditor : Editor
             EditorGUILayout.EndHorizontal();
 
             if (newEquipment != equippedItem)
+            {
+                changesMade = true;
                 equipmentLoadout.EquipItem(newEquipment);
+            }
         }
 
         EditorGUIUtility.labelWidth = saveSpace;
 
         GUILayout.Space(10f);
         GUILayout.Label("Weapons", EditorStyles.boldLabel);
-        equipmentLoadout.ActiveWeaponSlot = (WeaponSlot)EditorGUILayout.EnumPopup("Active Weapon", equipmentLoadout.ActiveWeaponSlot);
+
+        var slot = (WeaponSlot)EditorGUILayout.EnumPopup("Active Weapon", equipmentLoadout.ActiveWeaponSlot);
+        if (slot != equipmentLoadout.ActiveWeaponSlot)
+        {
+            changesMade = true;
+            equipmentLoadout.ActiveWeaponSlot = slot;
+        }
 
         EditorGUILayout.BeginHorizontal();
 
-        equipmentLoadout.EquippedItems[equipmentLoadout.PrimaryWeaponSlot] = (Equipment)EditorGUILayout.ObjectField("Primary Weapon", equipmentLoadout.EquippedItems[equipmentLoadout.PrimaryWeaponSlot], typeof(Equipment), false);
+        var primaryWeapon = (Equipment)EditorGUILayout.ObjectField("Primary Weapon", equipmentLoadout.EquippedItems[equipmentLoadout.PrimaryWeaponSlot], typeof(Equipment), false);
+        if (primaryWeapon != equipmentLoadout.EquippedItems[equipmentLoadout.PrimaryWeaponSlot])
+        {
+            changesMade = true;
+            equipmentLoadout.EquipItem(primaryWeapon);
+        }
 
         if (GUILayout.Button("Remove", EditorStyles.miniButton, GUILayout.Width(70f)))
             equipmentLoadout.UnequipItem(equipmentLoadout.EquippedItems[equipmentLoadout.PrimaryWeaponSlot]);
@@ -61,11 +77,19 @@ public class EquipmentLoadoutEditor : Editor
 
         EditorGUILayout.BeginHorizontal();
 
-        equipmentLoadout.EquippedItems[equipmentLoadout.SecondaryWeaponSlot] = (Equipment)EditorGUILayout.ObjectField("Secondary Weapon", equipmentLoadout.EquippedItems[equipmentLoadout.SecondaryWeaponSlot], typeof(Equipment), false);
+        var secondaryWeapon = (Equipment)EditorGUILayout.ObjectField("Secondary Weapon", equipmentLoadout.EquippedItems[equipmentLoadout.SecondaryWeaponSlot], typeof(Equipment), false);
+        if (secondaryWeapon != equipmentLoadout.EquippedItems[equipmentLoadout.SecondaryWeaponSlot])
+        {
+            changesMade = true;
+            equipmentLoadout.EquipItem(secondaryWeapon);
+        }
 
         if (GUILayout.Button("Remove", EditorStyles.miniButton, GUILayout.Width(70f)))
             equipmentLoadout.UnequipItem(equipmentLoadout.EquippedItems[equipmentLoadout.SecondaryWeaponSlot]);
 
-        EditorGUILayout.EndHorizontal(); 
+        EditorGUILayout.EndHorizontal();
+        
+        if (changesMade)
+            EditorUtility.SetDirty(equipmentLoadout);
     }
 }

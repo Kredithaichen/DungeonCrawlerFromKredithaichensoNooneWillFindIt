@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f509eb0339caa74ab0f4e02982d65de, type: 3}
   m_Name: DefaultPants
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Pants
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 2ce30e078042a474fb29e4aa7c636622, type: 3}
   meshRenderer: {fileID: 137533998682753860, guid: dbeb93e92e7cdbe4caab0703c1c82c07,
     type: 2}
   targetSlot: 5

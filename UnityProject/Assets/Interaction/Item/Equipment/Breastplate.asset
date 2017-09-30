@@ -11,10 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f509eb0339caa74ab0f4e02982d65de, type: 3}
   m_Name: Breastplate
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Breastplate
   description: 
   icon: {fileID: 0}
-  meshRenderer: {fileID: 0}
-  targetSlot: 0
-  coveredBodyAreas: 000000
+  meshRenderer: {fileID: 137141842290667010, guid: d83555d74ccb71547b4441059f4362a2,
+    type: 2}
+  targetSlot: 2
+  coveredBodyAreas: 000101
   statEffects: []

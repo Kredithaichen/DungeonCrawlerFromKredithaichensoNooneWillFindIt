@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEditor;
 using UnityEngine;
 
@@ -26,14 +27,41 @@ public class ItemEditor : Editor
 
     public static void DrawInspecturGUI(Item item)
     {
+        var changesMade = false;
+
         GUILayout.Label("General", EditorStyles.boldLabel);
-        item.ItemName = EditorGUILayout.TextField("Name", item.ItemName);
+        var name = EditorGUILayout.TextField("Name", item.ItemName);
+        if (name != item.ItemName)
+        {
+            changesMade = true;
+            item.ItemName = name;
+        }
+
         EditorGUILayout.LabelField("Description");
-        item.Description = EditorGUILayout.TextArea(item.Description);
+        var description = EditorGUILayout.TextArea(item.Description);
+        if (description != item.Description)
+        {
+            changesMade = true;
+            item.Description = description;
+        }
 
         GUILayout.Space(5f);
         GUILayout.Label("Appearance", EditorStyles.boldLabel);
-        item.Icon = (Sprite)EditorGUILayout.ObjectField("Icon", item.Icon, typeof(Sprite), true);
-        item.MeshRenderer = (SkinnedMeshRenderer)EditorGUILayout.ObjectField("Mesh", item.MeshRenderer, typeof(SkinnedMeshRenderer), true);
+        var icon = (Sprite)EditorGUILayout.ObjectField("Icon", item.Icon, typeof(Sprite), true);
+        if (icon != item.Icon)
+        {
+            changesMade = true;
+            item.Icon = icon;
+        }
+
+        var mesh = (SkinnedMeshRenderer)EditorGUILayout.ObjectField("Mesh", item.MeshRenderer, typeof(SkinnedMeshRenderer), true);
+        if (mesh != item.MeshRenderer)
+        {
+            changesMade = true;
+            item.MeshRenderer = mesh;
+        }
+
+        if (changesMade)
+            EditorUtility.SetDirty(item);
     }
 }

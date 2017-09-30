@@ -791,7 +791,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310264445328882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.09100162, y: 1.9752616e-18, z: -0.088957876}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4090679520352980}
@@ -1024,7 +1024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialized: 1
-  character: {fileID: 0}
+  character: {fileID: 114477898608542734}
   equippedItems:
   - {fileID: 0}
   - {fileID: 0}
@@ -1052,11 +1052,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   targetMesh: {fileID: 137632090537011596}
-  equipmentSlotLength: 0
-  primaryWeaponSlot: 0
-  secondaryWeaponSlot: 0
+  equipmentSlotLength: 12
+  primaryWeaponSlot: 10
+  secondaryWeaponSlot: 11
   activeWeaponSlot: 0
-  nonWeaponSlots: 0
+  nonWeaponSlots: 10
 --- !u!114 &114056925107221560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1138,8 +1138,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialized: 1
-  items: []
-  itemPickupPrefab: {fileID: 0}
+  items:
+  - {fileID: 11400000, guid: 9c7bd518eb09d3f48bde32692f816133, type: 2}
+  - {fileID: 11400000, guid: 23f32bd5674bc22468af808816c6b7b8, type: 2}
+  itemPickupPrefab: {fileID: 1814287788073704, guid: c7d5850c3ec7ef34093f150f7fd0422b,
+    type: 2}
 --- !u!114 &114749348086787998
 MonoBehaviour:
   m_ObjectHideFlags: 1

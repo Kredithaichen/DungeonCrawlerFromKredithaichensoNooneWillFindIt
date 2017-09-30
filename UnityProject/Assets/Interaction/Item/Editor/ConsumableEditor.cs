@@ -25,14 +25,23 @@ public class ConsumableEditor : Editor
 
     public static void DrawInspectorGUI(Consumable consumable)
     {
+        var changesMade = false;
+
         GUILayout.Space(10f);
         GUILayout.Label("Status Effects", EditorStyles.boldLabel);
 
         EditorGUILayout.BeginVertical();
 
         for (int i = 0; i < consumable.StatEffects.Count; i++)
-            consumable.StatEffects[i] =
-                (TemporaryStatEffect)EditorGUILayout.ObjectField((i + 1).ToString(), consumable.StatEffects[i], typeof(TemporaryStatEffect), true);
+        {
+            var effect = (TemporaryStatEffect)EditorGUILayout.ObjectField((i + 1).ToString(), consumable.StatEffects[i], typeof(TemporaryStatEffect), true);
+
+            if (effect != consumable.StatEffects[i])
+            {
+                changesMade = true;
+                consumable.StatEffects[i] = effect;
+            }
+        }
 
         EditorGUILayout.EndVertical();
 
@@ -46,5 +55,8 @@ public class ConsumableEditor : Editor
             consumable.StatEffects.RemoveAt(consumable.StatEffects.Count - 1);
 
         EditorGUILayout.EndHorizontal();
+
+        if (changesMade)
+            EditorUtility.SetDirty(consumable);
     }
 }
