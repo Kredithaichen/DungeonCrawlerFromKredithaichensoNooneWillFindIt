@@ -24,7 +24,7 @@ public enum BodyCoverArea
     Torso
 }
 
-[CreateAssetMenu(fileName = "New Equipment", menuName = "Interactable/Equipment")]
+[CreateAssetMenu(fileName = "New Equipment", menuName = "Interactable/Equipment/General")]
 public class Equipment : Item
 {
     public const int NumberOfBodyAreas = 3;

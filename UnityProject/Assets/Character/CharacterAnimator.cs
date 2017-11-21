@@ -21,6 +21,62 @@ public class CharacterAnimator : MonoBehaviour
     {
         var speed = character.Speed / character.Stats.CurrentMoveSpeed;
         animator.SetFloat("WalkSpeed", speed, animationSmoothTime, Time.deltaTime);
+
+        if (character.HSpeed > 0f)
+        {
+            animator.SetFloat("StepLeft", character.HSpeed, animationSmoothTime, Time.deltaTime);
+            animator.SetFloat("StepRight", 0f, animationSmoothTime, Time.deltaTime);
+            character.Speed = 0f;
+        }
+        else if (character.HSpeed < 0f)
+        {
+            animator.SetFloat("StepLeft", 0f, animationSmoothTime, Time.deltaTime);
+            animator.SetFloat("StepRight", -character.HSpeed, animationSmoothTime, Time.deltaTime);
+            character.Speed = 0f;
+        }
+        else
+        {
+            animator.SetFloat("StepLeft", 0f, animationSmoothTime, Time.deltaTime);
+            animator.SetFloat("StepRight", 0f, animationSmoothTime, Time.deltaTime);
+        }
+
+        character.ResetRotation();
+    }
+
+    public void UpdateWalkSpeed()
+    {
+        
+    }
+
+    void LateUpdate()
+    {
+        // stop braking crates
+        if (animator.GetBool("BreakingSomething"))
+            animator.SetBool("BreakingSomething", false);
+
+        // stop dashing
+        if (animator.GetBool("Dashing"))
+            animator.SetBool("Dashing", false);
+    }
+
+    public void ConsumeSomething()
+    {
+        
+    }
+
+    public void StopMoving()
+    {
+        //animator.SetFloat("WalkSpeed", 0f);
+    }
+
+    public void DoDash()
+    {
+        animator.SetBool("Dashing", true);
+    }
+
+    public void BreakSomething()
+    {
+        animator.SetBool("BreakingSomething", true);
     }
 
     public void UpdateTurningAnimation(float horizontal)

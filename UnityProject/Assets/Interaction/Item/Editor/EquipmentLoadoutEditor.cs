@@ -88,6 +88,35 @@ public class EquipmentLoadoutEditor : Editor
             equipmentLoadout.UnequipItem(equipmentLoadout.EquippedItems[equipmentLoadout.SecondaryWeaponSlot]);
 
         EditorGUILayout.EndHorizontal();
+
+        var belt = equipmentLoadout.EquippedItems[(int) EquipmentSlots.Waist] as Belt;
+        if (belt != null)
+        {
+            GUILayout.Space(10f);
+            GUILayout.Label("Belt", EditorStyles.boldLabel);
+
+            saveSpace = EditorGUIUtility.labelWidth;
+            EditorGUIUtility.labelWidth = 30f;
+
+            for (int i = 0; i < belt.BeltSlots; i++)
+            {
+                var equippedItem = equipmentLoadout.BeltSlots[i];
+
+                EditorGUILayout.BeginHorizontal();
+                var newConsumable = (Consumable)EditorGUILayout.ObjectField((i + 1).ToString(), equippedItem, typeof(Consumable), true);
+                if (GUILayout.Button("Remove", EditorStyles.miniButton, GUILayout.Width(70f)))
+                { }
+                EditorGUILayout.EndHorizontal();
+
+                if (newConsumable != equippedItem)
+                {
+                    changesMade = true;
+                    equipmentLoadout.BeltSlots[i] = newConsumable;
+                }
+            }
+
+            EditorGUIUtility.labelWidth = saveSpace;
+        }
         
         if (changesMade)
             EditorUtility.SetDirty(equipmentLoadout);

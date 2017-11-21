@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Interactable/Item")]
-public class Item : ScriptableObject, IStatSource
+public class Item : EditableScriptableObject, IStatSource
 {
     [SerializeField]
     private string itemName;

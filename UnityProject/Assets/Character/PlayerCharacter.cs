@@ -30,6 +30,11 @@ public class PlayerCharacter : EditableMonoBehaviour
     [SerializeField]
     private ContainerViewOnInventory containerViewOnInventory;
 
+    [SerializeField]
+    private float dashCoolDown;
+    [SerializeField]
+    private float currentDashCooldown;
+
     public Character Character
     {
         get { return character; }
@@ -81,6 +86,8 @@ public class PlayerCharacter : EditableMonoBehaviour
             HandleUIInput();
             HandleInteraction();
             HandleUIUpdates();
+
+            character.StateManager.HandleInput();
         }
     }
 
@@ -116,12 +123,14 @@ public class PlayerCharacter : EditableMonoBehaviour
     {
         if (characterUIShown || containerUIShown)
             return;
-
+        /*
         // control player movement
         var speed = 0f;
         var moveSpeed = stats.CurrentMoveSpeed + stats.CurrentDashSpeed;
 
         var eulerAngle = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+
+        var hSpeed = 0f;
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -136,20 +145,48 @@ public class PlayerCharacter : EditableMonoBehaviour
         else if (speed > 0f)
             speed -= 10f * Time.deltaTime;
 
+        if (Input.GetKey(KeyCode.A))
+        {
+            hSpeed += 120f * Time.deltaTime;
+            transform.position += (eulerAngle * Vector3.left) * moveSpeed * Time.deltaTime * character.HSpeed;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            hSpeed -= 120f * Time.deltaTime;
+            transform.position -= (eulerAngle * Vector3.right) * moveSpeed * Time.deltaTime * character.HSpeed;
+        }
+        else if (Math.Abs(hSpeed) > 0.001f)
+            hSpeed -= Mathf.Sign(hSpeed) * 120f * Time.deltaTime;
+        else
+            hSpeed = 0f;
+
         if (Input.GetKey(KeyCode.LeftShift))
             character.Speed = Mathf.Clamp(speed, 0, stats.CurrentMoveSpeed / 2);
         else
             character.Speed = Mathf.Clamp(speed, 0, stats.CurrentMoveSpeed);
 
+        character.HSpeed = Mathf.Clamp(hSpeed, -1, 1);
+
         // dash forward
-        if (character.Stats.CurrentDashSpeed > 0)
+        if (character.Stats.CurrentDashSpeed > 0f)
             stats.CurrentDashSpeed -= stats.DashReduction * Time.deltaTime;
-        else if (stats.CurrentDashSpeed < 0f)
+        else
             stats.CurrentDashSpeed = 0f;
 
-        if (Input.GetKey(KeyCode.Space) && Math.Abs(stats.CurrentDashSpeed) < 0.0001f)
-            stats.CurrentDashSpeed = stats.FullDashSpeed;
+        if (currentDashCooldown > 0f)
+            currentDashCooldown -= Time.deltaTime;
+        else
+            currentDashCooldown = 0f;
 
+        if (Input.GetKey(KeyCode.Space) && Math.Abs(stats.CurrentDashSpeed) < 0.0001f && Math.Abs(currentDashCooldown) < 0.0001f)
+        {
+            stats.CurrentDashSpeed = stats.FullDashSpeed;
+            character.Speed = 0f;
+            character.CharacterAnimator.StopMoving();
+            character.CharacterAnimator.DoDash();
+            currentDashCooldown = dashCoolDown;
+        }
+        */
         // turn with horizontal mouse axis
         if (allowCameraMovement)
             character.Turn(Input.GetAxis("Mouse X"));
@@ -173,8 +210,20 @@ public class PlayerCharacter : EditableMonoBehaviour
                 character.Speed = 0f;
             }
             else if (obj.IsInteractableOfType<DestructibleContainer>())
-                obj.AsInteractableOfType<DestructibleContainer>().DestroyObject();
+            {
+                character.CharacterAnimator.BreakSomething();
+                StartCoroutine(BrakingCrateAnimationWait(obj));
+            }
         }
+    }
+
+    private IEnumerator BrakingCrateAnimationWait(Interactable obj)
+    {
+        var targetPostition = new Vector3(obj.transform.position.x, transform.position.y, obj.transform.position.z);
+        transform.LookAt(targetPostition);
+
+        yield return new WaitForSeconds(0.2f);
+        obj.AsInteractableOfType<DestructibleContainer>().DestroyObject();
     }
 
     private void HandleUIInput()
@@ -249,8 +298,21 @@ public class PlayerCharacter : EditableMonoBehaviour
 
     public void RemoveEquipment(int equipmentSlot)
     {
-        Debug.Log("remove");
         var equipment = character.Inventory.EquipmentLoadout.EquippedItems[equipmentSlot];
+
+        character.Inventory.UnequipItem(equipment);
+        inventoryUIHandler.UpdateUI(this);
+    }
+
+    public void RemoveWeaponFromEqipment(int weaponSlot)
+    {
+        var loadOut = character.Inventory.EquipmentLoadout;
+        Equipment equipment;
+
+        if (weaponSlot == 0)
+            equipment = loadOut.EquippedItems[loadOut.PrimaryWeaponSlot];
+        else
+            equipment = loadOut.EquippedItems[loadOut.SecondaryWeaponSlot];
 
         character.Inventory.UnequipItem(equipment);
         inventoryUIHandler.UpdateUI(this);

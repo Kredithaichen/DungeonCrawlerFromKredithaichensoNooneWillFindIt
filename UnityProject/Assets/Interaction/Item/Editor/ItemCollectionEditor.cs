@@ -33,7 +33,7 @@ public class ItemCollectionEditor : Editor
         GUILayout.Label("Items", EditorStyles.boldLabel);
 
         if (itemCollection.ItemCount == 0)
-            GUILayout.Label("No Items in Inventoray", EditorStyles.centeredGreyMiniLabel);
+            GUILayout.Label("No Items in Inventory", EditorStyles.centeredGreyMiniLabel);
         else
         {
             var saveSpace = EditorGUIUtility.labelWidth;

@@ -24,6 +24,10 @@ public class CharacterEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        GUILayout.Label("General", EditorStyles.boldLabel);
+        character.CharacterName = EditorGUILayout.TextField("Name", character.CharacterName);
+
+        GUILayout.Space(10f);
         GUILayout.Label("Equipment Options", EditorStyles.boldLabel);
         character.TargetMesh = (SkinnedMeshRenderer)EditorGUILayout.ObjectField("Target Mesh", character.TargetMesh, typeof(SkinnedMeshRenderer), true);
     }

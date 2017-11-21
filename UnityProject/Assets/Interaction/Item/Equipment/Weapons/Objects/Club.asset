@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f509eb0339caa74ab0f4e02982d65de, type: 3}
+  m_Name: Club
+  m_EditorClassIdentifier: 
+  initialized: 1
+  itemName: Club
+  description: 
+  icon: {fileID: 21300000, guid: 657f81d54c8f06d46abb5eb21eca323e, type: 3}
+  meshRenderer: {fileID: 137971332260105238, guid: 947f9e0ef820a8d4e9baa0acda0d6a45,
+    type: 2}
+  targetSlot: 10
+  coveredBodyAreas: 000000
+  statEffects: []

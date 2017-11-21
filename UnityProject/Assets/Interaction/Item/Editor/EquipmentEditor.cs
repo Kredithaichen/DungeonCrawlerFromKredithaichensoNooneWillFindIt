@@ -25,13 +25,14 @@ public class EquipmentEditor : Editor
         EquipmentEditor.DrawInspectorGUI(equipment);
     }
 
-    public static void DrawInspectorGUI(Equipment equipment)
+    public static void DrawInspectorGUI(Equipment equipment, bool hideTargetSlot = false)
     {
         var changesMade = false;
 
         GUILayout.Space(10f);
         GUILayout.Label("Equipment Options", EditorStyles.boldLabel);
-        equipment.TargetSlot = (EquipmentSlots)EditorGUILayout.EnumPopup("Target Body Slot", equipment.TargetSlot);
+        if (!hideTargetSlot)
+            equipment.TargetSlot = (EquipmentSlots)EditorGUILayout.EnumPopup("Target Body Slot", equipment.TargetSlot);
 
         GUILayout.Label("Covered Body Parts:");
         EditorGUI.indentLevel++;
@@ -50,20 +51,26 @@ public class EquipmentEditor : Editor
         GUILayout.Space(10f);
         GUILayout.Label("Status Effects", EditorStyles.boldLabel);
 
-        EditorGUILayout.BeginVertical();
-
-        for (int i = 0; i < equipment.StatEffects.Count; i++)
+        if (equipment.StatEffects.Count == 0)
+            GUILayout.Label("No Status Effects", EditorStyles.centeredGreyMiniLabel);
+        else
         {
-            var effect = (PermanentStatEffect) EditorGUILayout.ObjectField((i + 1).ToString(), equipment.StatEffects[i], typeof(PermanentStatEffect), true);
+            EditorGUILayout.BeginVertical();
 
-            if (effect != equipment.StatEffects[i])
+            for (int i = 0; i < equipment.StatEffects.Count; i++)
             {
-                changesMade = true;
-                equipment.StatEffects[i] = effect;
-            }
-        }
+                var effect = (PermanentStatEffect) EditorGUILayout.ObjectField((i + 1).ToString(),
+                    equipment.StatEffects[i], typeof(PermanentStatEffect), true);
 
-        EditorGUILayout.EndVertical();
+                if (effect != equipment.StatEffects[i])
+                {
+                    changesMade = true;
+                    equipment.StatEffects[i] = effect;
+                }
+            }
+
+            EditorGUILayout.EndVertical();
+        }
 
         GUILayout.Space(10f);
         EditorGUILayout.BeginHorizontal();

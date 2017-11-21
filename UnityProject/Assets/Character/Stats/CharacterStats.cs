@@ -18,9 +18,14 @@ public class CharacterStats : EditableMonoBehaviour
     [SerializeField]
     protected float fullDashSpeed = 80f;
     [SerializeField]
-    protected float currentDashSpeed = 0f;
+    protected float currentDashSpeed;
     [SerializeField]
     protected float dashReduction = 320f;
+
+    [SerializeField]
+    protected float currentDashCooldown;
+    [SerializeField]
+    protected float dashCooldown = 0.5f;
 
     [SerializeField]
     protected float baseDamage;
@@ -103,6 +108,18 @@ public class CharacterStats : EditableMonoBehaviour
     {
         get { return statEffects; }
         set { statEffects = value; }
+    }
+
+    public float CurrentDashCooldown
+    {
+        get { return currentDashCooldown; }
+        set { currentDashCooldown = value; }
+    }
+
+    public float DashCooldown
+    {
+        get { return dashCooldown; }
+        set { dashCooldown = value; }
     }
 
     public override void Initialize()

@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4665547490682908}
   - component: {fileID: 33960206080671184}
   - component: {fileID: 23487923967369780}
-  - component: {fileID: 136614679613588374}
+  - component: {fileID: 65153536933931456}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1090197157653886}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.3, y: 1.64, z: 19.264284}
+  m_LocalPosition: {x: -3.8, y: 1.5, z: 18.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4665547490682908}
@@ -130,6 +130,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65153536933931456
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1124463201675500}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.089391, y: 2.1047366, z: 3.881591}
+  m_Center: {x: -0.00000047683716, y: -0.0000021457672, z: 0.90847564}
 --- !u!114 &114295612250334810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eedb201fa70eec49b36e36366874644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialized: 0
+  initialized: 1
   interactionRadius: 1
   noticeRadius: 10
 --- !u!114 &114570062948911090
@@ -155,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819ee0d79a7b6ac4cbd9381cd1eea810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialized: 0
+  initialized: 1
   destroyOnCollision: 1
   destructionThreshold: 5
   destroyedVersion: {fileID: 1926204979084772, guid: 83c12590af4915144945fde23e30593e,
@@ -182,19 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d935152c9128eb4eaa8f5cc0b337913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialized: 0
+  initialized: 1
   items: []
-  itemPickupPrefab: {fileID: 0}
---- !u!136 &136614679613588374
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1124463201675500}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1
-  m_Height: 4.1802597
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.73390687}
+  itemPickupPrefab: {fileID: 1814287788073704, guid: c7d5850c3ec7ef34093f150f7fd0422b,
+    type: 2}

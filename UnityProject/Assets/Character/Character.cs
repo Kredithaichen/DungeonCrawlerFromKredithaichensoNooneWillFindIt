@@ -9,7 +9,12 @@ using UnityEngine.AI;
 public class Character : EditableMonoBehaviour
 {
     [SerializeField]
+    protected string characterName;
+
+    [SerializeField]
     protected float speed;
+    [SerializeField]
+    protected float hSpeed;
     [SerializeField]
     private float turnSpeed = 120f;
 
@@ -17,6 +22,15 @@ public class Character : EditableMonoBehaviour
     protected Animator animator;
     [SerializeField]
     private CharacterAnimator characterAnimator;
+
+    [SerializeField]
+    protected CharacterStateManager stateManager;
+
+    private IdleState idleState;
+    private RunState runState;
+    private WalkState walkState;
+    private SidestepState sidestepState;
+    private DashState dashState;
 
     [SerializeField]
     private SkinnedMeshRenderer targetMesh;
@@ -71,6 +85,55 @@ public class Character : EditableMonoBehaviour
         }
     }
 
+    public CharacterAnimator CharacterAnimator
+    {
+        get { return characterAnimator; }
+        set { characterAnimator = value; }
+    }
+
+    public float HSpeed
+    {
+        get { return hSpeed; }
+        set { hSpeed = value; }
+    }
+
+    public CharacterStateManager StateManager
+    {
+        get { return stateManager; }
+        set { stateManager = value; }
+    }
+
+    public string CharacterName
+    {
+        get { return characterName; }
+        set { characterName = value; }
+    }
+
+    public IdleState IdleState
+    {
+        get { return idleState; }
+    }
+
+    public RunState RunState
+    {
+        get { return runState; }
+    }
+
+    public WalkState WalkState
+    {
+        get { return walkState; }
+    }
+
+    public SidestepState SidestepState
+    {
+        get { return sidestepState; }
+    }
+
+    public DashState DashState
+    {
+        get { return dashState; }
+    }
+
     public override void Initialize()
     {
         characterAnimator = GetComponent<CharacterAnimator>();
@@ -81,10 +144,25 @@ public class Character : EditableMonoBehaviour
         base.Initialize();
     }
 
+    public override void OnStartInitialize()
+    {
+        stateManager = new CharacterStateManager();
+        idleState = new IdleState(this);
+        runState = new RunState(this);
+        walkState = new WalkState(this);
+        sidestepState = new SidestepState(this);
+        dashState = new DashState(this);
+
+        stateManager.ChangeState(idleState);
+    }
+
     void Update()
     {
         // update the stats of the character
         stats.UpdateStats(this);
+
+        // handle states
+        stateManager.Update();
     }
 
     public void Turn(float horizontal)
@@ -94,6 +172,12 @@ public class Character : EditableMonoBehaviour
 
         // play animation along with it
         characterAnimator.UpdateTurningAnimation(horizontal);
+    }
+
+    public void ResetRotation()
+    {
+        var obj = transform.GetChild(0).transform;
+        transform.GetChild(0).transform.rotation = new Quaternion(obj.rotation.x, transform.rotation.y, obj.rotation.z, obj.rotation.w);
     }
 
     protected virtual void UpdateCharacter()
